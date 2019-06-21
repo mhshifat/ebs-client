@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter, Redirect, Switch } from "react-router-dom";
+import Bookings from "./components/Bookings";
+import Events from "./components/Events";
+import Footer from "./components/Footer";
+import LoggedInRoute from "./components/LoggedInRoute";
+import LoggedOutRoute from "./components/LoggedOutRoute";
+import Login from "./components/Login";
+import Navbar from "./components/Navbar";
+import Register from "./components/Register";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <BrowserRouter>
+          <Navbar />
+          <Switch>
+            <Redirect from="/" to="/register" exact />
+            <LoggedOutRoute exact path="/login" component={Login} />
+            <LoggedOutRoute exact path="/register" component={Register} />
+            <LoggedInRoute exact path="/events" component={Events} />
+            <LoggedInRoute exact path="/bookings" component={Bookings} />
+          </Switch>
+          <Footer />
+        </BrowserRouter>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
