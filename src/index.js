@@ -26,11 +26,14 @@ const authLink = new setContext((_, { headers }) => {
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
-    graphQLErrors.map(({ message, locations, path }) =>
-      console.log(
+    graphQLErrors.map(({ message, locations, path }) => {
+      if (message.includes("Authenticated required!")) {
+        localStorage.removeItem("token");
+      }
+      return console.log(
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
-    );
+      );
+    });
 
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
