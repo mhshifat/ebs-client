@@ -16,7 +16,7 @@ class Events extends Component {
 
   render() {
     const {
-      data: { loading, events }
+      data: { loading, events = [] }
     } = this.props;
     const { createEventModal } = this.state;
 

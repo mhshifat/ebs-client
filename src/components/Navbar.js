@@ -41,6 +41,20 @@ class Navbar extends Component {
           {isAuthenticated() && (
             <Menu.Item name="logout" onClick={this.logoutTheUser} />
           )}
+          {!isAuthenticated() && (
+            <React.Fragment>
+              <Menu.Item
+                name="Login"
+                active={this.props.location.pathname.includes("login")}
+                onClick={() => this.props.history.push("/login")}
+              />
+              <Menu.Item
+                name="Register"
+                active={this.props.location.pathname.includes("register")}
+                onClick={() => this.props.history.push("/register")}
+              />
+            </React.Fragment>
+          )}
         </Menu.Menu>
       </Menu>
     );
